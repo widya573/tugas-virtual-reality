@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VR Taman</title>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
+  <script>
+    AFRAME.registerComponent('click-to-toggle-move', {
+      schema: {
+        forward: {type: 'vec3', default: {x: -1.252, y: 0.210, z: -2}}, // MAJU ke depan (Z-)
+        backward: {type: 'vec3', default: {x: -1.252, y: 0.210, z: 3.762}}, // MUNDUR ke belakang (Z+)
+        speed: {type: 'number', default: 3000}
+      },
+      init: function () {
+        const el = this.el;
+        let movingForward = true;
+
+        el.addEventListener('click', () => {
+          const position = movingForward ? this.data.forward : this.data.backward;
+          el.setAttribute('animation', {
+            property: 'position',
+            to: `${position.x} ${position.y} ${position.z}`,
+            dur: this.data.speed,
+            easing: 'linear'
+          });
+          movingForward = !movingForward;
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <a-scene background="color: #aee2ff" shadow="type: pcfsoft">
+
+    <!-- Musik Latar -->
+    <a-sound src="url(assets_uts/energipositif.mp3)" autoplay="true" loop="true" position="0 2 5"></a-sound>
+    
+    <!-- Pencahayaan -->
+    <a-light type="ambient" intensity="0.7" color="#ffffff"></a-light>
+    <a-light type="directional" intensity="1.0" color="#ffffff" position="3 10 5" target="#target" castShadow="true"></a-light>
+    <a-entity id="target" position="0 0 0"></a-entity>
+    <a-light type="point" color="#ffffff" intensity="1.2" distance="8" position="-1.2 2 3.7"></a-light>
+
+    <!-- Kamera dan kursor -->
+    <a-entity id="rig" position="0 1.6 5">
+      <a-entity 
+        id="camera"
+        camera 
+        look-controls 
+        wasd-controls 
+        position="0 0 0"
+        raycaster="objects: .clickable"
+        cursor="fuse: false; rayOrigin: mouse;">
+        
+        <a-entity 
+          geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" 
+          material="color: black; shader: flat" 
+          position="0 0 -1">
+        </a-entity>
+      </a-entity>
+    </a-entity>
+
+    <!-- Taman -->
+    <a-entity 
+      gltf-model="assets_uts/tamann/scene.gltf" 
+      position="0.814 0.110 1.974" 
+      scale="1.000 1.000 1.000"
+      shadow="cast: true; receive: true">
+    </a-entity>
+
+    <!-- Mobil -->
+    <a-entity id="mobil" class="clickable" click-to-toggle-move 
+      position="-1.252 0.210 3.762" rotation="0 90 0" scale="0.882 1.059 0.856">
+      
+      <a-box 
+        position="0 0.5 0" 
+        depth="2" height="1" width="4"
+        material="opacity: 0; transparent: true"
+        class="clickable">
+      </a-box>
+
+      <a-entity 
+        gltf-model="assets_uts/mobilku/scene.gltf" 
+        shadow="cast: true; receive: true">
+      </a-entity>
+    </a-entity>
+
+    <!-- Lampu Jalan -->
+    <a-entity gltf-model="assets_uts/lampu jalan/scene.gltf" position="-0.812 1.515 -8.587" rotation="180.000 -89.706 180.000" scale="1.2 1.2 1.2" shadow="cast: true; receive: true"></a-entity>
+    <a-entity gltf-model="assets_uts/lampu jalan/scene.gltf" position="4.573 1.445 8.947" rotation="0.000 -89.793 0.000" scale="1.2 1.2 1.2" shadow="cast: true; receive: true"></a-entity>
+    <a-entity gltf-model="assets_uts/lampu jalan/scene.gltf" position="-7.396 1.225 2.361" rotation="0 0 0" scale="1.2 1.2 1.2" shadow="cast: true; receive: true"></a-entity>
+    <a-entity gltf-model="assets_uts/lampu jalan/scene.gltf" position="-2.504 1.259 4.292" rotation="0.000 87.805 0.000" scale="1.2 1.2 1.2" shadow="cast: true; receive: true"></a-entity>
+
+    <!-- Perosotan -->
+    <a-entity gltf-model="assets_uts/perosotan/scene.gltf" position="0.949 0.108 6.432" rotation="0 -88.651 0" scale="0.207 0.167 0.172" shadow="cast: true; receive: true"></a-entity>
+
+    <!-- Ayunan -->
+    <a-entity gltf-model="assets_uts/ayunan/scene.gltf" position="1.409 0.112 9.878" rotation="0 177.521 0" scale="0.039 0.044 0.036" shadow="cast: true; receive: true"></a-entity>
+
+    <!-- BOY running maju mundur -->
+    <a-entity 
+    id="boy"
+    gltf-model="assets_uts/boy/scene.gltf"
+    position="-1.402 0 4"
+    rotation="0 178.424 0"
+    scale="0.2 0.2 0.2"
+    animation-mixer="clip: run"
+    animation="property: position; to: -1.402 0 2.5; dur: 2000; easing: linear; loop: true; dir: alternate"
+    shadow="cast: true; receive: true">
+  </a-entity>
+
+  </a-scene>
+</body>
+</html>

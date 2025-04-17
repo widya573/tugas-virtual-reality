@@ -1,0 +1,11 @@
+Model Information:
+* title:	OnMon ferm
+* source:	https://sketchfab.com/3d-models/onmon-ferm-430355b7be374389b5a25ea1b665944f
+* author:	Egor Melentovich (https://sketchfab.com/egoryanfmc)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "OnMon ferm" (https://sketchfab.com/3d-models/onmon-ferm-430355b7be374389b5a25ea1b665944f) by Egor Melentovich (https://sketchfab.com/egoryanfmc) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
